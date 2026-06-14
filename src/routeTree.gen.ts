@@ -17,7 +17,9 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedPortalRouteImport } from './routes/_authenticated/portal'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedPortalIndexRouteImport } from './routes/_authenticated/portal.index'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedPortalVolunteerRouteImport } from './routes/_authenticated/portal.volunteer'
 import { Route as AuthenticatedPortalSupportRouteImport } from './routes/_authenticated/portal.support'
 import { Route as AuthenticatedPortalProfileRouteImport } from './routes/_authenticated/portal.profile'
@@ -25,6 +27,12 @@ import { Route as AuthenticatedPortalNotificationsRouteImport } from './routes/_
 import { Route as AuthenticatedPortalEventsRouteImport } from './routes/_authenticated/portal.events'
 import { Route as AuthenticatedPortalDonationsRouteImport } from './routes/_authenticated/portal.donations'
 import { Route as AuthenticatedPortalDocumentsRouteImport } from './routes/_authenticated/portal.documents'
+import { Route as AuthenticatedAdminVolunteersRouteImport } from './routes/_authenticated/admin.volunteers'
+import { Route as AuthenticatedAdminStaffRouteImport } from './routes/_authenticated/admin.staff'
+import { Route as AuthenticatedAdminMembersRouteImport } from './routes/_authenticated/admin.members'
+import { Route as AuthenticatedAdminEventsRouteImport } from './routes/_authenticated/admin.events'
+import { Route as AuthenticatedAdminDonationsRouteImport } from './routes/_authenticated/admin.donations'
+import { Route as AuthenticatedAdminAnnouncementsRouteImport } from './routes/_authenticated/admin.announcements'
 
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
@@ -65,12 +73,22 @@ const AuthenticatedPortalRoute = AuthenticatedPortalRouteImport.update({
   path: '/portal',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedPortalIndexRoute =
   AuthenticatedPortalIndexRouteImport.update({
     id: '/',
     path: '/',
     getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
 const AuthenticatedPortalVolunteerRoute =
   AuthenticatedPortalVolunteerRouteImport.update({
     id: '/volunteer',
@@ -113,6 +131,41 @@ const AuthenticatedPortalDocumentsRoute =
     path: '/documents',
     getParentRoute: () => AuthenticatedPortalRoute,
   } as any)
+const AuthenticatedAdminVolunteersRoute =
+  AuthenticatedAdminVolunteersRouteImport.update({
+    id: '/volunteers',
+    path: '/volunteers',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminStaffRoute = AuthenticatedAdminStaffRouteImport.update({
+  id: '/staff',
+  path: '/staff',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const AuthenticatedAdminMembersRoute =
+  AuthenticatedAdminMembersRouteImport.update({
+    id: '/members',
+    path: '/members',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminEventsRoute =
+  AuthenticatedAdminEventsRouteImport.update({
+    id: '/events',
+    path: '/events',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminDonationsRoute =
+  AuthenticatedAdminDonationsRouteImport.update({
+    id: '/donations',
+    path: '/donations',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminAnnouncementsRoute =
+  AuthenticatedAdminAnnouncementsRouteImport.update({
+    id: '/announcements',
+    path: '/announcements',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -121,7 +174,14 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/events': typeof EventsRoute
   '/services': typeof ServicesRoute
+  '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/portal': typeof AuthenticatedPortalRouteWithChildren
+  '/admin/announcements': typeof AuthenticatedAdminAnnouncementsRoute
+  '/admin/donations': typeof AuthenticatedAdminDonationsRoute
+  '/admin/events': typeof AuthenticatedAdminEventsRoute
+  '/admin/members': typeof AuthenticatedAdminMembersRoute
+  '/admin/staff': typeof AuthenticatedAdminStaffRoute
+  '/admin/volunteers': typeof AuthenticatedAdminVolunteersRoute
   '/portal/documents': typeof AuthenticatedPortalDocumentsRoute
   '/portal/donations': typeof AuthenticatedPortalDonationsRoute
   '/portal/events': typeof AuthenticatedPortalEventsRoute
@@ -129,6 +189,7 @@ export interface FileRoutesByFullPath {
   '/portal/profile': typeof AuthenticatedPortalProfileRoute
   '/portal/support': typeof AuthenticatedPortalSupportRoute
   '/portal/volunteer': typeof AuthenticatedPortalVolunteerRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
   '/portal/': typeof AuthenticatedPortalIndexRoute
 }
 export interface FileRoutesByTo {
@@ -138,6 +199,12 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/events': typeof EventsRoute
   '/services': typeof ServicesRoute
+  '/admin/announcements': typeof AuthenticatedAdminAnnouncementsRoute
+  '/admin/donations': typeof AuthenticatedAdminDonationsRoute
+  '/admin/events': typeof AuthenticatedAdminEventsRoute
+  '/admin/members': typeof AuthenticatedAdminMembersRoute
+  '/admin/staff': typeof AuthenticatedAdminStaffRoute
+  '/admin/volunteers': typeof AuthenticatedAdminVolunteersRoute
   '/portal/documents': typeof AuthenticatedPortalDocumentsRoute
   '/portal/donations': typeof AuthenticatedPortalDonationsRoute
   '/portal/events': typeof AuthenticatedPortalEventsRoute
@@ -145,6 +212,7 @@ export interface FileRoutesByTo {
   '/portal/profile': typeof AuthenticatedPortalProfileRoute
   '/portal/support': typeof AuthenticatedPortalSupportRoute
   '/portal/volunteer': typeof AuthenticatedPortalVolunteerRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
   '/portal': typeof AuthenticatedPortalIndexRoute
 }
 export interface FileRoutesById {
@@ -156,7 +224,14 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/events': typeof EventsRoute
   '/services': typeof ServicesRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/_authenticated/portal': typeof AuthenticatedPortalRouteWithChildren
+  '/_authenticated/admin/announcements': typeof AuthenticatedAdminAnnouncementsRoute
+  '/_authenticated/admin/donations': typeof AuthenticatedAdminDonationsRoute
+  '/_authenticated/admin/events': typeof AuthenticatedAdminEventsRoute
+  '/_authenticated/admin/members': typeof AuthenticatedAdminMembersRoute
+  '/_authenticated/admin/staff': typeof AuthenticatedAdminStaffRoute
+  '/_authenticated/admin/volunteers': typeof AuthenticatedAdminVolunteersRoute
   '/_authenticated/portal/documents': typeof AuthenticatedPortalDocumentsRoute
   '/_authenticated/portal/donations': typeof AuthenticatedPortalDonationsRoute
   '/_authenticated/portal/events': typeof AuthenticatedPortalEventsRoute
@@ -164,6 +239,7 @@ export interface FileRoutesById {
   '/_authenticated/portal/profile': typeof AuthenticatedPortalProfileRoute
   '/_authenticated/portal/support': typeof AuthenticatedPortalSupportRoute
   '/_authenticated/portal/volunteer': typeof AuthenticatedPortalVolunteerRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/portal/': typeof AuthenticatedPortalIndexRoute
 }
 export interface FileRouteTypes {
@@ -175,7 +251,14 @@ export interface FileRouteTypes {
     | '/contact'
     | '/events'
     | '/services'
+    | '/admin'
     | '/portal'
+    | '/admin/announcements'
+    | '/admin/donations'
+    | '/admin/events'
+    | '/admin/members'
+    | '/admin/staff'
+    | '/admin/volunteers'
     | '/portal/documents'
     | '/portal/donations'
     | '/portal/events'
@@ -183,6 +266,7 @@ export interface FileRouteTypes {
     | '/portal/profile'
     | '/portal/support'
     | '/portal/volunteer'
+    | '/admin/'
     | '/portal/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -192,6 +276,12 @@ export interface FileRouteTypes {
     | '/contact'
     | '/events'
     | '/services'
+    | '/admin/announcements'
+    | '/admin/donations'
+    | '/admin/events'
+    | '/admin/members'
+    | '/admin/staff'
+    | '/admin/volunteers'
     | '/portal/documents'
     | '/portal/donations'
     | '/portal/events'
@@ -199,6 +289,7 @@ export interface FileRouteTypes {
     | '/portal/profile'
     | '/portal/support'
     | '/portal/volunteer'
+    | '/admin'
     | '/portal'
   id:
     | '__root__'
@@ -209,7 +300,14 @@ export interface FileRouteTypes {
     | '/contact'
     | '/events'
     | '/services'
+    | '/_authenticated/admin'
     | '/_authenticated/portal'
+    | '/_authenticated/admin/announcements'
+    | '/_authenticated/admin/donations'
+    | '/_authenticated/admin/events'
+    | '/_authenticated/admin/members'
+    | '/_authenticated/admin/staff'
+    | '/_authenticated/admin/volunteers'
     | '/_authenticated/portal/documents'
     | '/_authenticated/portal/donations'
     | '/_authenticated/portal/events'
@@ -217,6 +315,7 @@ export interface FileRouteTypes {
     | '/_authenticated/portal/profile'
     | '/_authenticated/portal/support'
     | '/_authenticated/portal/volunteer'
+    | '/_authenticated/admin/'
     | '/_authenticated/portal/'
   fileRoutesById: FileRoutesById
 }
@@ -288,12 +387,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPortalRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/portal/': {
       id: '/_authenticated/portal/'
       path: '/'
       fullPath: '/portal/'
       preLoaderRoute: typeof AuthenticatedPortalIndexRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
+    }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
     }
     '/_authenticated/portal/volunteer': {
       id: '/_authenticated/portal/volunteer'
@@ -344,8 +457,73 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPortalDocumentsRouteImport
       parentRoute: typeof AuthenticatedPortalRoute
     }
+    '/_authenticated/admin/volunteers': {
+      id: '/_authenticated/admin/volunteers'
+      path: '/volunteers'
+      fullPath: '/admin/volunteers'
+      preLoaderRoute: typeof AuthenticatedAdminVolunteersRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/staff': {
+      id: '/_authenticated/admin/staff'
+      path: '/staff'
+      fullPath: '/admin/staff'
+      preLoaderRoute: typeof AuthenticatedAdminStaffRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/members': {
+      id: '/_authenticated/admin/members'
+      path: '/members'
+      fullPath: '/admin/members'
+      preLoaderRoute: typeof AuthenticatedAdminMembersRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/events': {
+      id: '/_authenticated/admin/events'
+      path: '/events'
+      fullPath: '/admin/events'
+      preLoaderRoute: typeof AuthenticatedAdminEventsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/donations': {
+      id: '/_authenticated/admin/donations'
+      path: '/donations'
+      fullPath: '/admin/donations'
+      preLoaderRoute: typeof AuthenticatedAdminDonationsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/announcements': {
+      id: '/_authenticated/admin/announcements'
+      path: '/announcements'
+      fullPath: '/admin/announcements'
+      preLoaderRoute: typeof AuthenticatedAdminAnnouncementsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
   }
 }
+
+interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminAnnouncementsRoute: typeof AuthenticatedAdminAnnouncementsRoute
+  AuthenticatedAdminDonationsRoute: typeof AuthenticatedAdminDonationsRoute
+  AuthenticatedAdminEventsRoute: typeof AuthenticatedAdminEventsRoute
+  AuthenticatedAdminMembersRoute: typeof AuthenticatedAdminMembersRoute
+  AuthenticatedAdminStaffRoute: typeof AuthenticatedAdminStaffRoute
+  AuthenticatedAdminVolunteersRoute: typeof AuthenticatedAdminVolunteersRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+}
+
+const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminAnnouncementsRoute: AuthenticatedAdminAnnouncementsRoute,
+  AuthenticatedAdminDonationsRoute: AuthenticatedAdminDonationsRoute,
+  AuthenticatedAdminEventsRoute: AuthenticatedAdminEventsRoute,
+  AuthenticatedAdminMembersRoute: AuthenticatedAdminMembersRoute,
+  AuthenticatedAdminStaffRoute: AuthenticatedAdminStaffRoute,
+  AuthenticatedAdminVolunteersRoute: AuthenticatedAdminVolunteersRoute,
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+}
+
+const AuthenticatedAdminRouteWithChildren =
+  AuthenticatedAdminRoute._addFileChildren(AuthenticatedAdminRouteChildren)
 
 interface AuthenticatedPortalRouteChildren {
   AuthenticatedPortalDocumentsRoute: typeof AuthenticatedPortalDocumentsRoute
@@ -373,10 +551,12 @@ const AuthenticatedPortalRouteWithChildren =
   AuthenticatedPortalRoute._addFileChildren(AuthenticatedPortalRouteChildren)
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
   AuthenticatedPortalRoute: typeof AuthenticatedPortalRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
   AuthenticatedPortalRoute: AuthenticatedPortalRouteWithChildren,
 }
 

@@ -62,8 +62,7 @@ export function AdminShell({ children, title, description }: { children: ReactNo
             return (
               <Link
                 key={it.to}
-                // @ts-expect-error dynamic string path
-                to={it.to}
+                to={it.to as never}
                 className={
                   "flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors " +
                   (active ? "bg-primary text-primary-foreground" : "text-ink-foreground/80 hover:bg-white/5")
