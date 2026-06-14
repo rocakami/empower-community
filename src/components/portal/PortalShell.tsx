@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import type { ReactNode } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 
-const items = [
+const items: Array<{ to: string; label: string; icon: React.ComponentType<{ className?: string }>; exact?: boolean }> = [
   { to: "/portal", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { to: "/portal/profile", label: "My profile", icon: User },
   { to: "/portal/donations", label: "Donations", icon: Heart },
@@ -15,7 +15,7 @@ const items = [
   { to: "/portal/documents", label: "Documents", icon: FileText },
   { to: "/portal/support", label: "Support", icon: LifeBuoy },
   { to: "/portal/notifications", label: "Notifications", icon: Bell },
-] as const;
+];
 
 export function PortalShell({ children, title, description }: { children: ReactNode; title: string; description?: string }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
