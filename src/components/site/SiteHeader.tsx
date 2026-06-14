@@ -1,5 +1,8 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
+import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
+import { useSession } from "@/hooks/use-session";
+import { supabase } from "@/integrations/supabase/client";
 
 const nav = [
   { to: "/", label: "Home" },
@@ -10,6 +13,17 @@ const nav = [
 ] as const;
 
 export function SiteHeader() {
+  const { user, loading } = useSession();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  async function signOut() {
+    await queryClient.cancelQueries();
+    queryClient.clear();
+    await supabase.auth.signOut();
+    navigate({ to: "/", replace: true });
+  }
+
   return (
     <header className="sticky top-0 z-40 w-full bg-background/90 backdrop-blur border-b">
       <div className="topbar-strip text-xs">
@@ -35,12 +49,25 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className="flex items-center gap-2">
-          <Button asChild variant="ghost" size="sm">
-            <Link to="/auth">Sign in</Link>
-          </Button>
-          <Button asChild size="sm" className="bg-primary hover:bg-primary/90">
-            <Link to="/auth" search={{ mode: "signup" } as never}>Become a member</Link>
-          </Button>
+          {loading ? null : user ? (
+            <>
+              <Button asChild variant="ghost" size="sm">
+                <Link to="/portal">My portal</Link>
+              </Button>
+              <Button onClick={signOut} size="sm" variant="outline">
+                Sign out
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button asChild variant="ghost" size="sm">
+                <Link to="/auth">Sign in</Link>
+              </Button>
+              <Button asChild size="sm" className="bg-primary hover:bg-primary/90">
+                <Link to="/auth" search={{ mode: "signup" } as never}>Become a member</Link>
+              </Button>
+            </>
+          )}
         </div>
       </div>
     </header>
