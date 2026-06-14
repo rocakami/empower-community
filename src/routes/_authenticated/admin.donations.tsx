@@ -15,7 +15,7 @@ function DonationsAdmin() {
     queryKey: ["admin-donations"],
     queryFn: async () => {
       const { data } = await supabase.from("donations")
-        .select("*, profiles:profiles!donations_user_id_fkey(full_name, email)")
+        .select("*, profiles:profiles!donations_profile_fk(full_name, email)")
         .order("donated_at", { ascending: false });
       return data ?? [];
     },

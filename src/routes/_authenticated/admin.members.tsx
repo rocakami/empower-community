@@ -20,7 +20,7 @@ function MembersAdmin() {
     queryKey: ["admin-members"],
     queryFn: async () => {
       const { data } = await supabase.from("members")
-        .select("id, user_id, member_type, status, tags, joined_at, profiles:profiles!members_user_id_fkey(full_name, email, phone)")
+        .select("id, user_id, member_type, status, tags, joined_at, profiles:profiles!members_profile_fk(full_name, email, phone)")
         // members.user_id references auth.users, so join via the profiles table id column
         .order("joined_at", { ascending: false });
       return data ?? [];

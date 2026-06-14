@@ -22,7 +22,7 @@ function StaffAdmin() {
     queryKey: ["admin-staff"],
     queryFn: async () => {
       const { data } = await supabase.from("user_roles")
-        .select("user_id, role, profiles:profiles!user_roles_user_id_fkey(full_name, email)")
+        .select("user_id, role, profiles:profiles!user_roles_profile_fk(full_name, email)")
         .in("role", STAFF_ROLES as unknown as never);
       return data ?? [];
     },

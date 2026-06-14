@@ -17,7 +17,7 @@ function VolunteersAdmin() {
     queryKey: ["admin-volunteers"],
     queryFn: async () => {
       const { data } = await supabase.from("volunteer_applications")
-        .select("*, profiles:profiles!volunteer_applications_user_id_fkey(full_name, email)")
+        .select("*, profiles:profiles!volunteer_applications_profile_fk(full_name, email)")
         .order("applied_at", { ascending: false });
       return data ?? [];
     },
